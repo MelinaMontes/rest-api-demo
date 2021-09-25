@@ -6,6 +6,7 @@ import java.util.Map;
 import com.test.devops.restapidemo.model.User;
 
 public interface IUserService {
+    //declaro los metodos y los implemento en userservice
     List<User> getAllUsers();
 
     User getUserById(Long userId);

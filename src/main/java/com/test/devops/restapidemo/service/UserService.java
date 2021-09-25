@@ -27,7 +27,7 @@ public class UserService implements IUserService{
     @Autowired
     private UserRepository userRepository;
 
-    @Override
+    @Override//implemento los metodos de IuserService
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -36,9 +36,9 @@ public class UserService implements IUserService{
     public User getUserById(Long userId) {
         User user = new User();
         try {
-            user = userRepository.findById(userId)
+            user = userRepository.findById(userId) // ejecuta y si no encuentra al usuario me devuelve not found
                     .orElseThrow(() -> new ResourceNotFoundException("User not found on ::" + userId));
-        } catch (ResourceNotFoundException e) {
+        } catch (ResourceNotFoundException e) { // arrojando esta excepcion
             LOGGER.error("Error al obtener usuario", e);
         }
         return user;
@@ -54,10 +54,9 @@ public class UserService implements IUserService{
         User updatedUser = new User();
         try {
             User user = new User();
-            user = userRepository.findById(userId)
-                    .orElseThrow(() -> new ResourceNotFoundException("User not found on ::" + userId));
+            user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found on ::" + userId));
             user.setEmail(userDet.getEmail());
-            user.setName(userDet.getName());
+            user.setFirstName(userDet.getFirstName());
             user.setUpdatedAt(new Date());
             updatedUser = userRepository.save(user);
         } catch (ResourceNotFoundException exc) {
